@@ -1,0 +1,80 @@
+{
+  "name": "corvette",
+  "version": "1.0.0",
+  "description": "Blazing fast config based http framework",
+  "main": "lib/index",
+  "typings": "lib/index",
+  "scripts": {
+    "build": "npm run clean && npm run cp_dts && tsc",
+    "clean": "rm -rf lib && mkdir lib",
+    "cp_dts": "cp src/index.d.ts lib/index.d.ts",
+    "postinstall": "npm run build",
+    "coverage": "codecov",
+    "test": "NODE_ENV=test nyc mocha -r ts-node/register/transpile-only -r source-map-support/register '@(test|src)/**/*.spec.ts' --exit",
+    "tslint": "tslint '**/*.ts'"
+  },
+  "author": "Andrey Shuvalov",
+  "license": "MIT",
+  "nyc": {
+    "check-coverage": true,
+    "per-file": false,
+    "lines": 99,
+    "statements": 99,
+    "functions": 99,
+    "branches": 99,
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      "test"
+    ],
+    "reporter": [
+      "html",
+      "lcov",
+      "text-summary"
+    ],
+    "all": false,
+    "report-dir": "reports/coverage",
+    "temp-directory": "reports/nyc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged",
+      "pre-push": "npm test"
+    }
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120,
+    "trailingComma": "all"
+  },
+  "devDependencies": {
+    "@types/chai": "4.1.4",
+    "@types/cookie": "0.3.1",
+    "@types/mocha": "5.2.4",
+    "@types/node": "10.5.1",
+    "@types/pino": "4.16.0",
+    "@types/uws": "0.13.2",
+    "chai": "4.1.2",
+    "codecov": "3.0.4",
+    "cookie": "0.3.1",
+    "fastest-validator": "dronbas/fastest-validator",
+    "husky": "1.0.0-rc.13",
+    "hyperid": "1.4.1",
+    "mocha": "5.2.0",
+    "nyc": "12.0.2",
+    "prettier": "1.13.7",
+    "pretty-quick": "1.6.0",
+    "ts-node": "7.0.0",
+    "tslint": "5.10.0",
+    "tslint-config-prettier": "1.13.0",
+    "tslint-plugin-prettier": "1.3.0",
+    "typescript": "2.9.2"
+  },
+  "dependencies": {
+    "fast-json-stringify": "1.6.0",
+    "find-my-way": "1.15.1",
+    "pino": "4.17.3",
+    "uws": "10.148.1"
+  }
+}
