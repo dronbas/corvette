@@ -52,7 +52,7 @@ export class Corvette {
   }
 
   private async handleRequest(req: IncomingMessage, action: IAction, params: any): Promise<IHandleRequest> {
-    const { query } = parseUrl(req.url);
+    const { query } = parseUrl(req.url, true);
     let session;
     const ip = this.getIp(req);
     if (!action.isWhiteListed()) {

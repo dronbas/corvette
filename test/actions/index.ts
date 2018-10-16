@@ -167,7 +167,7 @@ export const actions: Array<ITestActionConfig> = [
   },
   {
     test: { postData: { v1: 'text', v2: { v3: 'as' } }, body: { error: 'Bad Request' }, status: 400 },
-    name: 'Test bad validation',
+    name: 'Test bad post validation',
     path: '/white/listed/bad/validation',
     method: 'POST',
     version: 12,
@@ -185,8 +185,26 @@ export const actions: Array<ITestActionConfig> = [
     },
   },
   {
+    test: { query: 'someParam=1', body: { state: 'OK' }, status: 200 },
+    name: 'Test query validation',
+    path: '/white/listed/ok/query/validation',
+    method: 'GET',
+    version: 12,
+    prefix: 'test',
+    signed: false,
+    whiteListed: true,
+    rateLimitWeight: 1,
+    validateInput: v.compile({
+      someParam: 'string',
+    }),
+    compileResponse: fastJson({ type: 'object', properties: { state: { type: 'string' } } }),
+    handle() {
+      return { state: 'OK' };
+    },
+  },
+  {
     test: { postData: { v1: 'text', v2: { v3: 'test@test.te' } }, body: { state: 'OK' }, status: 200 },
-    name: 'Test good validation',
+    name: 'Test success post validation',
     path: '/white/listed/good/validation',
     method: 'POST',
     version: 12,

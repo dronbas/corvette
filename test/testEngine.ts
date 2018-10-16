@@ -22,7 +22,7 @@ async function makeTest(action, testData) {
   actionsHeaders['user-agent'] = testData.agent ? testData.agent : defaultAgent;
   const { status, body, headers }: IResponse = await makeRequest(
     action.getMethod(),
-    action.getUrl(),
+    testData.query ? `${action.getUrl()}/?${testData.query}` : action.getUrl(),
     testData.postData,
     actionsHeaders,
   );
